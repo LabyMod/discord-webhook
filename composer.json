@@ -1,0 +1,26 @@
+{
+    "name": "labymod/discord-webhook",
+    "description": "A lightweight library for Discord™ Webhooks",
+    "type": "library",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "LabyMod Scrummer",
+            "email": "scrummer@gmx.ch",
+            "homepage": "https://labymod.net",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "guzzlehttp/guzzle": "~6.3.3"
+    },
+    "config": {
+        "vendor-dir": "src/vendor"
+    },
+    "autoload": {
+        "psr-4": {
+            "DiscordWebhook\\": "src/DiscordWebhook/"
+        }
+    }
+}
