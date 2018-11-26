@@ -20,7 +20,6 @@ $wh
 ```
 
 For further documentation have a look here:
-
 * [Basics](docs/01_Basics.md)
 * [Sending Files](docs/02_SendingFiles.md)
 * [Embeds](docs/03_Embeds.md)
