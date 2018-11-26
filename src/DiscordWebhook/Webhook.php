@@ -12,7 +12,7 @@ use GuzzleHttp\Exception\GuzzleException;
  * @author Scrummer <scrummer@gmx.ch>
  * @package DiscordWebhook
  */
-class Webhook
+class Webhook implements WebhookInterface
 {
     /**
      * @var Client
@@ -115,9 +115,9 @@ class Webhook
     /**
      * @param bool $tts
      *
-     * @return Webhook
+     * @return WebhookInterface
      */
-    public function setTts(bool $tts = false): self
+    public function setTts(bool $tts = false): WebhookInterface
     {
         $this->tts = $tts;
 
@@ -127,9 +127,9 @@ class Webhook
     /**
      * @param string $username
      *
-     * @return Webhook
+     * @return WebhookInterface
      */
-    public function setUsername(string $username): self
+    public function setUsername(string $username): WebhookInterface
     {
         $this->username = $username;
 
@@ -139,9 +139,9 @@ class Webhook
     /**
      * @param string $url
      *
-     * @return Webhook
+     * @return WebhookInterface
      */
-    public function setAvatar(string $url): self
+    public function setAvatar(string $url): WebhookInterface
     {
         $this->avatar = $url;
 
@@ -151,9 +151,9 @@ class Webhook
     /**
      * @param string $message
      *
-     * @return Webhook
+     * @return WebhookInterface
      */
-    public function setMessage(string $message): self
+    public function setMessage(string $message): WebhookInterface
     {
         $this->message = $message;
 
@@ -163,9 +163,9 @@ class Webhook
     /**
      * @param \SplFileInfo $file
      *
-     * @return Webhook
+     * @return WebhookInterface
      */
-    public function setFile(\SplFileInfo $file): self
+    public function setFile(\SplFileInfo $file): WebhookInterface
     {
         $this->file = $file;
 
