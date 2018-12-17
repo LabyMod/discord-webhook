@@ -13,7 +13,7 @@ $file = new SplFileInfo('path/to/my_file.pdf');
 
 $wh = new Webhook('https://my.webhook/url');
 $wh
-    ->setMessage('Here\'s my cool file:') // optional text which is send with the file
+    ->setMessage('Here\'s my cool file:') // optional text which is sent with the file
     ->setFile($file)
     ->send();
 ```
