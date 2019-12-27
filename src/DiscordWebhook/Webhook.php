@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace DiscordWebhook;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use RuntimeException;
+use SplFileInfo;
 
 /**
  * Class Webhook
@@ -40,9 +43,14 @@ class Webhook implements WebhookInterface
     private $tts;
 
     /**
-     * @var array
+     * @var SplFileInfo
      */
     private $file;
+
+    /**
+     * @var Embed[]|ArrayCollection
+     */
+    private $embeds;
 
     /**
      * Constructor.
@@ -51,6 +59,7 @@ class Webhook implements WebhookInterface
      */
     public function __construct(string $url)
     {
+        $this->embeds = new ArrayCollection();
         $this->client = new Client([
             'base_uri' => $url
         ]);
@@ -70,7 +79,7 @@ class Webhook implements WebhookInterface
             $this->buildPayload()
         );
 
-        return $response->getStatusCode() === 200;
+        return in_array($response->getStatusCode(), [200, 201, 202, 204], true);
     }
 
     private function buildPayload(): array
@@ -97,8 +106,8 @@ class Webhook implements WebhookInterface
                     'name'     => $payloadField,
                     'contents' => $this->$field
                 ];
-            } elseif ($this->$field instanceof \SplFileInfo) { // add file
-                /** @var \SplFileInfo $file */
+            } elseif ($this->$field instanceof SplFileInfo) { // add file
+                /** @var SplFileInfo $file */
                 $file = $this->$field;
 
                 $payload['multipart'][] = [
@@ -161,14 +170,32 @@ class Webhook implements WebhookInterface
     }
 
     /**
-     * @param \SplFileInfo $file
+     * @param SplFileInfo $file
      *
      * @return WebhookInterface
      */
-    public function setFile(\SplFileInfo $file): WebhookInterface
+    public function setFile(SplFileInfo $file): WebhookInterface
     {
         $this->file = $file;
 
         return $this;
+    }
+
+    /**
+     * Add an embed to the message.
+     *
+     * @param Embed $embed
+     *
+     * @return int The index of the recently added embed
+     */
+    public function addEmbed(Embed $embed): int
+    {
+        if ($this->embeds->count() >= Embed::CONFIG_MAX_COUNT) {
+            throw new RuntimeException(sprintf('Maximum amount of embeds reached for this message. Discord allows only %d embeds.', Embed::CONFIG_MAX_COUNT));
+        }
+
+        $this->embeds->add($embed);
+
+        return (int)$this->embeds->indexOf($embed);
     }
 }
