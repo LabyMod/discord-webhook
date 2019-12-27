@@ -1,5 +1,18 @@
 # Changelog
 
+### 0.2.0
+* Embed support
+    * `DiscordWebhook\Webhook::addEmbed(Embed $embed)`
+    * `DiscordWebhook\Embed`
+    * `DiscordWebhook\Embed\Author`
+    * `DiscordWebhook\Embed\Field`
+    * `DiscordWebhook\Embed\Footer`
+    * `DiscordWebhook\Embed\Image`
+    * `DiscordWebhook\Embed\Provider`
+    * `DiscordWebhook\Embed\Thumbnail`
+    * `DiscordWebhook\Embed\Video`
+    
+
 ### 0.1.1
 * Documentation in `docs/`
 * This changelog
