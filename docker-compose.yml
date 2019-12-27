@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+    test:
+        build: .
+        volumes:
+            - .:/app
+        environment:
+            - COMPOSER_COMMAND=update
+            - DISCORD_TEST_URL=https://canary.discordapp.com/api/webhooks/516547484881780756/xl520hjY_CIFtgZpTSfJzxdliexLc9QHoIPgEnnxCgKvd-oK6wL-Rcb2oyK_3sTiq6oU
