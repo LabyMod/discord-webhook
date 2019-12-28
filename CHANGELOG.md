@@ -1,7 +1,7 @@
 # Changelog
 
 ### 0.2.0
-* Embed support
+* FEATURE: Embed support
     * `DiscordWebhook\Webhook::addEmbed(Embed $embed)`
     * `DiscordWebhook\Embed`
     * `DiscordWebhook\Embed\Author`
@@ -11,6 +11,7 @@
     * `DiscordWebhook\Embed\Provider`
     * `DiscordWebhook\Embed\Thumbnail`
     * `DiscordWebhook\Embed\Video`
+* FEATURE: Multi-domain support
     
 
 ### 0.1.1

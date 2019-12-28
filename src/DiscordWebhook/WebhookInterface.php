@@ -14,9 +14,9 @@ interface WebhookInterface
     /**
      * WebhookInterface constructor.
      *
-     * @param string $url
+     * @param array $url
      */
-    public function __construct(string $url);
+    public function __construct(array $url);
 
     /**
      * Execute the webhook
@@ -32,7 +32,7 @@ interface WebhookInterface
      *
      * @return WebhookInterface
      */
-    public function setTts(bool $tts = false): self;
+    public function setIsTts(bool $tts = false): self;
 
     /**
      * Set the username of the bot

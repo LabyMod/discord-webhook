@@ -8,6 +8,8 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use RuntimeException;
 use SplFileInfo;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * Class Webhook
@@ -18,73 +20,106 @@ use SplFileInfo;
 class Webhook implements WebhookInterface
 {
     /**
-     * @var Client
+     * @var Client[]|ArrayCollection
      */
-    private $client;
+    private $clients;
 
     /**
      * @var string
+     *
+     * @Groups({"discord"})
      */
     private $username;
 
     /**
      * @var string
+     *
+     * @Groups({"discord"})
+     * @SerializedName("avatar_url")
      */
     private $avatar;
 
     /**
      * @var string
+     *
+     * @Groups({"discord"})
      */
     private $message;
 
     /**
      * @var bool
+     *
+     * @Groups({"discord"})
+     * @SerializedName("tts")
      */
-    private $tts;
+    private $isTts;
 
     /**
      * @var SplFileInfo
+     *
+     * @Groups({"discord"})
      */
     private $file;
 
     /**
      * @var Embed[]|ArrayCollection
+     *
+     * @Groups({"discord"})
      */
     private $embeds;
 
     /**
      * Constructor.
      *
-     * @param string $url
+     * @param array $url
      */
-    public function __construct(string $url)
+    public function __construct(array $url)
     {
         $this->embeds = new ArrayCollection();
-        $this->client = new Client([
-            'base_uri' => $url
-        ]);
+        $this->clients = new ArrayCollection();
+
+        foreach ($url as $webhook) {
+            $this->clients->add(new Client([
+                'base_uri' => $webhook
+            ]));
+        }
     }
 
     /**
      * Send the Webhook
      *
      * @return bool
-     * @throws GuzzleException
      */
     public function send(): bool
     {
-        $response = $this->client->request(
-            'POST',
-            $this->client->getConfig('base_uri')->getPath(),
-            $this->buildPayload()
-        );
+        /** @var int[] $responseCodes */
+        $responseCodes = [];
+        $payload = $this->buildPayload();
 
-        return in_array($response->getStatusCode(), [200, 201, 202, 204], true);
+        $this->clients->forAll(static function (int $key, Client $client) use ($payload) {
+            $responseCodes[] = $client->request(
+                'POST',
+                $client->getConfig('base_uri')->getPath(),
+                $payload
+            )->getStatusCode();
+        });
+
+        foreach ($responseCodes as $responseCode) {
+            if (!in_array($responseCode, [200, 201, 202, 204], true)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private function buildPayload(): array
     {
-        $fields  = [
+
+
+
+        // ==============================
+        $fields = [
             'username' => 'username',
             'avatar'   => 'avatar_url',
             'message'  => 'content',
@@ -122,13 +157,13 @@ class Webhook implements WebhookInterface
     }
 
     /**
-     * @param bool $tts
+     * @param bool $isTts
      *
      * @return WebhookInterface
      */
-    public function setTts(bool $tts = false): WebhookInterface
+    public function setIsTts(bool $isTts = false): WebhookInterface
     {
-        $this->tts = $tts;
+        $this->isTts = $isTts;
 
         return $this;
     }
