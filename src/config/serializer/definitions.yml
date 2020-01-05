@@ -1,0 +1,95 @@
+# Base objects
+####################
+DiscordWebhook\Webhook:
+    attributes:
+        username: ~
+        avatar:
+            serialized_name: avatar_url
+        message:
+            serialized_name: content
+        isTts:
+            serialized_name: tts
+        file: ~
+        embeds: ~
+
+DiscordWebhook\Embed:
+    attributes:
+        title: ~
+        type: ~
+        description: ~
+        url: ~
+        timestamp: ~
+        color: ~
+        footer: ~
+        image: ~
+        thumbnail: ~
+        video: ~
+        provider: ~
+        author: ~
+        fields: ~
+
+
+# Embed traits
+####################
+DiscordWebhook\Embed\Traits\IconTrait:
+    attributes: &icon_trait_attributes
+        iconUrl:
+            serialized_name: icon_url
+        proxyIconUrl:
+            serialized_name: proxy_icon_url
+
+DiscordWebhook\Embed\Traits\LinkableTrait:
+    attributes: &linkable_trait_attributes
+        url: ~
+        proxyUrl:
+            serialized_name: proxy_url
+
+DiscordWebhook\Embed\Traits\NameableTrait:
+    attributes: &nameable_trait_attributes
+        name: ~
+
+DiscordWebhook\Embed\Traits\ResizableTrait:
+    attributes: &resizable_trait_attributes
+        width: ~
+        height: ~
+
+
+# Embed elements
+####################
+DiscordWebhook\Embed\Author:
+    attributes:
+        <<: *nameable_trait_attributes
+        <<: *icon_trait_attributes
+        url: ~
+
+DiscordWebhook\Embed\Field:
+    attributes:
+        name: ~
+        value: ~
+        isInline:
+            serialized_name: inline
+
+DiscordWebhook\Embed\Footer:
+    attributes:
+        <<: *icon_trait_attributes
+        text: ~
+
+DiscordWebhook\Embed\Image:
+    attributes:
+        <<: *linkable_trait_attributes
+        <<: *resizable_trait_attributes
+
+DiscordWebhook\Embed\Provider:
+    attributes:
+        <<: *nameable_trait_attributes
+        url: ~
+
+DiscordWebhook\Embed\Thumbnail:
+    attributes:
+        <<: *linkable_trait_attributes
+        <<: *resizable_trait_attributes
+
+DiscordWebhook\Embed\Video:
+    attributes:
+        <<: *resizable_trait_attributes
+        url: ~

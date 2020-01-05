@@ -12,12 +12,52 @@ namespace DiscordWebhook\Embed\Traits;
 trait LinkableTrait
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $url;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $proxyUrl;
+
+    /**
+     * @return string|null
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string|null $url
+     *
+     * @return self
+     */
+    public function setUrl(?string $url): self
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getProxyUrl(): ?string
+    {
+        return $this->proxyUrl;
+    }
+
+    /**
+     * @param string|null $proxyUrl
+     *
+     * @return self
+     */
+    public function setProxyUrl(?string $proxyUrl): self
+    {
+        $this->proxyUrl = $proxyUrl;
+
+        return $this;
+    }
 }

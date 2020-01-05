@@ -84,12 +84,12 @@ class Webhook
     {
         /** @var int[] $responseCodes */
         $responseCodes = [];
-        $payload = $this->buildPayload();
+        $payload = $this->payloadGenerator->generate($this);
 
         $this->clients->forAll(static function (int $key, Client $client) use ($payload) {
             $responseCodes[] = $client->request(
                 'POST',
-                $client->getConfig('base_uri')->getPath(),
+                '',
                 $payload
             )->getStatusCode();
         });
@@ -101,49 +101,6 @@ class Webhook
         }
 
         return true;
-    }
-
-    private function buildPayload(): array
-    {
-        dump($this->payloadGenerator->generate($this));
-
-        exit;
-        // ==============================
-        $fields = [
-            'username' => 'username',
-            'avatar'   => 'avatar_url',
-            'message'  => 'content',
-            'tts'      => 'tts',
-            'file'     => 'file',
-            'embeds'   => 'embeds'
-        ];
-        $payload = [
-            'multipart' => []
-        ];
-
-        foreach ($fields as $field => $payloadField) {
-            if (!property_exists($this, $field) || null === $this->$field) {
-                continue;
-            }
-
-            if (is_string($this->$field) || is_bool($this->$field)) { // add string and booloan values
-                $payload['multipart'][] = [
-                    'name'     => $payloadField,
-                    'contents' => $this->$field
-                ];
-            } elseif ($this->$field instanceof SplFileInfo) { // add file
-                /** @var SplFileInfo $file */
-                $file = $this->$field;
-
-                $payload['multipart'][] = [
-                    'name'     => $payloadField,
-                    'contents' => $file->openFile()->fread($file->getSize()),
-                    'filename' => $file->getFilename()
-                ];
-            }
-        }
-
-        return $payload;
     }
 
     /**
@@ -251,9 +208,9 @@ class Webhook
      *
      * @param Embed $embed
      *
-     * @return int The index of the recently added embed
+     * @return Webhook
      */
-    public function addEmbed(Embed $embed): int
+    public function addEmbed(Embed $embed): Webhook
     {
         if ($this->embeds->count() >= Embed::CONFIG_MAX_COUNT) {
             throw new RuntimeException(sprintf('Maximum amount of embeds reached for this message. Discord allows only %d embeds.', Embed::CONFIG_MAX_COUNT));
@@ -261,7 +218,7 @@ class Webhook
 
         $this->embeds->add($embed);
 
-        return (int)$this->embeds->indexOf($embed);
+        return $this;
     }
 
     /**

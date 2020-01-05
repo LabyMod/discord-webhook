@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace DiscordWebhook\Generator;
 
 use DateTime;
+use SplFileInfo;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\YamlFileLoader;
@@ -26,11 +27,12 @@ class PayloadGenerator
 
     public function __construct()
     {
-        $classMetadataFactory = new ClassMetadataFactory(new YamlFileLoader(__DIR__ . '/../../config/serializer/definition.yml'));
+        $classMetadataFactory = new ClassMetadataFactory(new YamlFileLoader(__DIR__ . '/../../config/serializer/definitions.yml'));
         $metadataAwareNameConverter = new MetadataAwareNameConverter($classMetadataFactory);
         $defaultContext = [
             ObjectNormalizer::CALLBACKS => [
-                'timestamp' => [$this, 'formatTimestamp']
+                'timestamp' => [$this, 'formatTimestamp'],
+                'file' => [$this, 'formatFile']
             ],
             ObjectNormalizer::SKIP_NULL_VALUES => true
         ];
@@ -50,17 +52,50 @@ class PayloadGenerator
 
     public function generate(object $object): array
     {
-        return $this->serializer->normalize(
+        $data = [];
+        $normalizedData = $this->serializer->normalize(
             $object,
             null,
             [
-                'groups' => ['discord']
+                ObjectNormalizer::ALLOW_EXTRA_ATTRIBUTES => false
             ]
         );
+
+        if (!array_key_exists('embeds', $normalizedData)) {
+            foreach ($normalizedData as $field => $content) {
+                $tmpData = [
+                    'name' => $field,
+                    'contents' => $content
+                ];
+
+                if ($field === 'file' && $field !== null) {
+                    $tmpData = $content;
+                }
+
+                $data['multipart'][] = $tmpData;
+            }
+        } else { // only send it as json when there are embeds
+            $data['form_params']['payload_json'] = $this->serializer->encode($normalizedData, JsonEncoder::FORMAT);
+        }
+
+        return $data;
     }
 
     public function formatTimestamp($dateTime): ?string
     {
         return $dateTime instanceof DateTime ? $dateTime->format(DateTime::ATOM) : null;
+    }
+
+    public function formatFile($file): ?array
+    {
+        if ($file instanceof SplFileInfo) {
+            return [
+                'name' => 'file',
+                'contents' => $file->openFile()->fread($file->getSize()),
+                'filename' => $file->getFilename()
+            ];
+        }
+
+        return null;
     }
 }

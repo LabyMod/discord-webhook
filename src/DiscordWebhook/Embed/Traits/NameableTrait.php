@@ -12,7 +12,27 @@ namespace DiscordWebhook\Embed\Traits;
 trait NameableTrait
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string|null $name
+     *
+     * @return self
+     */
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 }

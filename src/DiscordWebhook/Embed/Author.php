@@ -18,7 +18,27 @@ class Author
     use IconTrait;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $url;
+
+    /**
+     * @return string|null
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string|null $url
+     *
+     * @return Author
+     */
+    public function setUrl(?string $url): Author
+    {
+        $this->url = $url;
+
+        return $this;
+    }
 }
