@@ -3,13 +3,11 @@ declare(strict_types=1);
 
 namespace DiscordWebhook;
 
+use DiscordWebhook\Generator\PayloadGenerator;
 use Doctrine\Common\Collections\ArrayCollection;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use RuntimeException;
 use SplFileInfo;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * Class Webhook
@@ -17,7 +15,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  * @author Scrummer <scrummer@gmx.ch>
  * @package DiscordWebhook
  */
-class Webhook implements WebhookInterface
+class Webhook
 {
     /**
      * @var Client[]|ArrayCollection
@@ -25,48 +23,39 @@ class Webhook implements WebhookInterface
     private $clients;
 
     /**
-     * @var string
-     *
-     * @Groups({"discord"})
+     * @var null|string
      */
     private $username;
 
     /**
-     * @var string
-     *
-     * @Groups({"discord"})
-     * @SerializedName("avatar_url")
+     * @var null|string
      */
     private $avatar;
 
     /**
-     * @var string
-     *
-     * @Groups({"discord"})
+     * @var null|string
      */
     private $message;
 
     /**
-     * @var bool
-     *
-     * @Groups({"discord"})
-     * @SerializedName("tts")
+     * @var null|bool
      */
     private $isTts;
 
     /**
-     * @var SplFileInfo
-     *
-     * @Groups({"discord"})
+     * @var null|SplFileInfo
      */
     private $file;
 
     /**
      * @var Embed[]|ArrayCollection
-     *
-     * @Groups({"discord"})
      */
     private $embeds;
+
+    /**
+     * @var PayloadGenerator
+     */
+    private $payloadGenerator;
 
     /**
      * Constructor.
@@ -77,6 +66,7 @@ class Webhook implements WebhookInterface
     {
         $this->embeds = new ArrayCollection();
         $this->clients = new ArrayCollection();
+        $this->payloadGenerator = new PayloadGenerator();
 
         foreach ($url as $webhook) {
             $this->clients->add(new Client([
@@ -115,9 +105,9 @@ class Webhook implements WebhookInterface
 
     private function buildPayload(): array
     {
+        dump($this->payloadGenerator->generate($this));
 
-
-
+        exit;
         // ==============================
         $fields = [
             'username' => 'username',
@@ -157,23 +147,19 @@ class Webhook implements WebhookInterface
     }
 
     /**
-     * @param bool $isTts
-     *
-     * @return WebhookInterface
+     * @return string|null
      */
-    public function setIsTts(bool $isTts = false): WebhookInterface
+    public function getUsername(): ?string
     {
-        $this->isTts = $isTts;
-
-        return $this;
+        return $this->username;
     }
 
     /**
-     * @param string $username
+     * @param string|null $username
      *
-     * @return WebhookInterface
+     * @return Webhook
      */
-    public function setUsername(string $username): WebhookInterface
+    public function setUsername(?string $username): Webhook
     {
         $this->username = $username;
 
@@ -181,23 +167,39 @@ class Webhook implements WebhookInterface
     }
 
     /**
-     * @param string $url
-     *
-     * @return WebhookInterface
+     * @return string|null
      */
-    public function setAvatar(string $url): WebhookInterface
+    public function getAvatar(): ?string
     {
-        $this->avatar = $url;
+        return $this->avatar;
+    }
+
+    /**
+     * @param string|null $avatar
+     *
+     * @return Webhook
+     */
+    public function setAvatar(?string $avatar): Webhook
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
 
     /**
-     * @param string $message
-     *
-     * @return WebhookInterface
+     * @return string|null
      */
-    public function setMessage(string $message): WebhookInterface
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
+    /**
+     * @param string|null $message
+     *
+     * @return Webhook
+     */
+    public function setMessage(?string $message): Webhook
     {
         $this->message = $message;
 
@@ -205,11 +207,39 @@ class Webhook implements WebhookInterface
     }
 
     /**
-     * @param SplFileInfo $file
-     *
-     * @return WebhookInterface
+     * @return bool|null
      */
-    public function setFile(SplFileInfo $file): WebhookInterface
+    public function getIsTts(): ?bool
+    {
+        return $this->isTts;
+    }
+
+    /**
+     * @param bool|null $isTts
+     *
+     * @return Webhook
+     */
+    public function setIsTts(?bool $isTts): Webhook
+    {
+        $this->isTts = $isTts;
+
+        return $this;
+    }
+
+    /**
+     * @return SplFileInfo|null
+     */
+    public function getFile(): ?SplFileInfo
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param SplFileInfo|null $file
+     *
+     * @return Webhook
+     */
+    public function setFile(?SplFileInfo $file): Webhook
     {
         $this->file = $file;
 
@@ -232,5 +262,13 @@ class Webhook implements WebhookInterface
         $this->embeds->add($embed);
 
         return (int)$this->embeds->indexOf($embed);
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getEmbeds(): ?array
+    {
+        return $this->embeds->isEmpty() ? null : $this->embeds->toArray();
     }
 }

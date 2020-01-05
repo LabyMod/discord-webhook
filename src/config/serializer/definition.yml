@@ -1,0 +1,45 @@
+DiscordWebhook\Webhook:
+    attributes:
+        username:
+            groups: ['discord']
+        avatar:
+            groups: ['discord']
+            serialized_name: avatar_url
+        message:
+            groups: ['discord']
+        isTts:
+            groups: ['discord']
+            serialized_name: tts
+        file:
+            groups: ['discord']
+        embeds:
+            groups: ['discord']
+
+DiscordWebhook\Embed:
+    attributes:
+        title:
+            groups: ['discord']
+        type:
+            groups: ['discord']
+        description:
+            groups: ['discord']
+        url:
+            groups: ['discord']
+        timestamp:
+            groups: ['discord']
+        color:
+            groups: ['discord']
+        footer:
+            groups: ['discord']
+        image:
+            groups: ['discord']
+        thumbnail:
+            groups: ['discord']
+        video:
+            groups: ['discord']
+        provider:
+            groups: ['discord']
+        author:
+            groups: ['discord']
+        fields:
+            groups: ['discord']
