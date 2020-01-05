@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.0.0
+* FEATURE: Final embed support
+* HTTP client implementation
+* Production-ready
+
 ### 0.2.0
 * FEATURE: Embed support
     * `DiscordWebhook\Webhook::addEmbed(Embed $embed)`
