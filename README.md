@@ -1,4 +1,10 @@
 # Discord Webhook
+[![Latest Stable Version](https://poser.pugx.org/labymod/discord-webhook/v)](https://packagist.org/packages/labymod/discord-webhook)
+[![Latest Unstable Version](https://poser.pugx.org/labymod/discord-webhook/v/unstable)](https://packagist.org/packages/labymod/discord-webhook)
+[![Total Downloads](https://poser.pugx.org/labymod/discord-webhook/downloads)](https://packagist.org/packages/labymod/discord-webhook)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/LabyMod/discord-webhook/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/LabyMod/discord-webhook/?branch=master)
+[![License](https://poser.pugx.org/labymod/discord-webhook/license)](https://packagist.org/packages/labymod/discord-webhook)
+
 Send Discord messages directly from your PHP application. Even with embeds & files!
 
 ## Installation

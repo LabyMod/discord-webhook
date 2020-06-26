@@ -1,5 +1,14 @@
 # Changelog
 
+### 1.0.3
+* BUG/Improvement: Allow usage of Symfony versions ^3.0|^4.0|^5.0
+
+### 1.0.2
+* BUG: Fixed version binding of Symfony packages
+
+### 1.0.1
+* BUG: Use feature releases of guzzlehttp/guzzle
+
 ### 1.0.0
 * FEATURE: Final embed support
 * HTTP client implementation
