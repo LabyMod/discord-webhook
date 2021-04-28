@@ -1,7 +1,7 @@
 # Changelog
 
-### 1.1.0
-* FEATURE: PHP 8.0 ready
+### 1.0.4
+* PHP 8.0 ready
 
 ### 1.0.3
 * BUG/Improvement: Allow usage of Symfony versions ^3.0|^4.0|^5.0
