@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace DiscordWebhook\Generator;
 
-use DateTime;
+use DateTimeInterface;
 use SplFileInfo;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
@@ -68,7 +68,7 @@ class PayloadGenerator
                     'contents' => $content
                 ];
 
-                if ($field === 'file' && $field !== null) {
+                if ($field === 'file') {
                     $tmpData = $content;
                 }
 
@@ -83,7 +83,7 @@ class PayloadGenerator
 
     public function formatTimestamp($dateTime): ?string
     {
-        return $dateTime instanceof DateTime ? $dateTime->format(DateTime::ATOM) : null;
+        return $dateTime instanceof DateTimeInterface ? $dateTime->format(DateTimeInterface::ATOM) : null;
     }
 
     public function formatFile($file): ?array
