@@ -1,5 +1,8 @@
 # Changelog
 
+### 1.0.5
+* BUG: Fixed wrong usage of `DateTime` generation. Now `DateTimeInterface` is used.
+
 ### 1.0.4
 * PHP 8.0 ready
 
