@@ -1,5 +1,8 @@
 # Changelog
 
+### 1.0.6
+* Changed `guzzlehttp/guzzle` version bound to be backwards compatible.
+
 ### 1.0.5
 * BUG: Fixed wrong usage of `DateTime` generation. Now `DateTimeInterface` is used.
 
