@@ -10,6 +10,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use JetBrains\PhpStorm\Pure;
 use RuntimeException;
 use SplFileInfo;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 /**
  * Class Webhook
@@ -56,6 +57,8 @@ class Webhook
 
     /**
      * @throws GuzzleException
+     * @throws ExceptionInterface
+     * @throws RuntimeException
      */
     public function send(): bool
     {
