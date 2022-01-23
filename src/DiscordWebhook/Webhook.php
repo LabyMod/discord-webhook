@@ -6,6 +6,8 @@ namespace DiscordWebhook;
 use DiscordWebhook\Generator\PayloadGenerator;
 use Doctrine\Common\Collections\ArrayCollection;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use JetBrains\PhpStorm\Pure;
 use RuntimeException;
 use SplFileInfo;
 
@@ -18,50 +20,27 @@ use SplFileInfo;
 class Webhook
 {
     /**
-     * @var Client[]|ArrayCollection
+     * @var Client[]
      */
-    private $clients;
+    private array|ArrayCollection $clients;
+
+    private ?string $username;
+
+    private ?string $avatar;
+
+    private ?string $message;
+
+    private ?bool $isTts;
+
+    private ?SplFileInfo $file;
 
     /**
-     * @var null|string
+     * @var Embed[]
      */
-    private $username;
+    private array|ArrayCollection $embeds;
 
-    /**
-     * @var null|string
-     */
-    private $avatar;
+    private PayloadGenerator $payloadGenerator;
 
-    /**
-     * @var null|string
-     */
-    private $message;
-
-    /**
-     * @var null|bool
-     */
-    private $isTts;
-
-    /**
-     * @var null|SplFileInfo
-     */
-    private $file;
-
-    /**
-     * @var Embed[]|ArrayCollection
-     */
-    private $embeds;
-
-    /**
-     * @var PayloadGenerator
-     */
-    private $payloadGenerator;
-
-    /**
-     * Constructor.
-     *
-     * @param array $url
-     */
     public function __construct(array $url)
     {
         $this->embeds = new ArrayCollection();
@@ -76,25 +55,19 @@ class Webhook
     }
 
     /**
-     * Send the Webhook
-     *
-     * @return bool
+     * @throws GuzzleException
      */
     public function send(): bool
     {
-        /** @var int[] $responseCodes */
-        $responseCodes = [];
+        /** @var ArrayCollection|int[] $responseCodes */
+        $responseCodes = new ArrayCollection();
         $payload = $this->payloadGenerator->generate($this);
 
-        $this->clients->forAll(static function (int $key, Client $client) use ($payload) {
-            $responseCodes[] = $client->request(
-                'POST',
-                '',
-                $payload
-            )->getStatusCode();
+        $this->clients->forAll(function (int $key, Client $client) use ($payload, $responseCodes) {
+            $responseCodes->add($client->request('POST', '', $payload)->getStatusCode());
         });
 
-        foreach ($responseCodes as $responseCode) {
+        foreach ($responseCodes->getValues() as $responseCode) {
             if (!in_array($responseCode, [200, 201, 202, 204], true)) {
                 return false;
             }
@@ -103,19 +76,11 @@ class Webhook
         return true;
     }
 
-    /**
-     * @return string|null
-     */
     public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    /**
-     * @param string|null $username
-     *
-     * @return Webhook
-     */
     public function setUsername(?string $username): Webhook
     {
         $this->username = $username;
@@ -123,19 +88,11 @@ class Webhook
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAvatar(): ?string
     {
         return $this->avatar;
     }
 
-    /**
-     * @param string|null $avatar
-     *
-     * @return Webhook
-     */
     public function setAvatar(?string $avatar): Webhook
     {
         $this->avatar = $avatar;
@@ -143,19 +100,11 @@ class Webhook
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getMessage(): ?string
     {
         return $this->message;
     }
 
-    /**
-     * @param string|null $message
-     *
-     * @return Webhook
-     */
     public function setMessage(?string $message): Webhook
     {
         $this->message = $message;
@@ -163,19 +112,11 @@ class Webhook
         return $this;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getIsTts(): ?bool
     {
         return $this->isTts;
     }
 
-    /**
-     * @param bool|null $isTts
-     *
-     * @return Webhook
-     */
     public function setIsTts(?bool $isTts): Webhook
     {
         $this->isTts = $isTts;
@@ -183,19 +124,11 @@ class Webhook
         return $this;
     }
 
-    /**
-     * @return SplFileInfo|null
-     */
     public function getFile(): ?SplFileInfo
     {
         return $this->file;
     }
 
-    /**
-     * @param SplFileInfo|null $file
-     *
-     * @return Webhook
-     */
     public function setFile(?SplFileInfo $file): Webhook
     {
         $this->file = $file;
@@ -203,13 +136,6 @@ class Webhook
         return $this;
     }
 
-    /**
-     * Add an embed to the message.
-     *
-     * @param Embed $embed
-     *
-     * @return Webhook
-     */
     public function addEmbed(Embed $embed): Webhook
     {
         if ($this->embeds->count() >= Embed::CONFIG_MAX_COUNT) {
@@ -221,9 +147,6 @@ class Webhook
         return $this;
     }
 
-    /**
-     * @return array|null
-     */
     public function getEmbeds(): ?array
     {
         return $this->embeds->isEmpty() ? null : $this->embeds->toArray();

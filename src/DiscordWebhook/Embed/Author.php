@@ -17,24 +17,13 @@ class Author
     use NameableTrait;
     use IconTrait;
 
-    /**
-     * @var string|null
-     */
-    private $url;
+    private ?string $url;
 
-    /**
-     * @return string|null
-     */
     public function getUrl(): ?string
     {
         return $this->url;
     }
 
-    /**
-     * @param string|null $url
-     *
-     * @return Author
-     */
     public function setUrl(?string $url): Author
     {
         $this->url = $url;

@@ -11,75 +11,42 @@ namespace DiscordWebhook\Embed;
  */
 class Field
 {
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @var string
-     */
-    private $value;
+    private string $value;
 
-    /**
-     * @var bool|null
-     */
-    private $isInline;
+    private ?bool $isInline;
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return self
-     */
-    public function setName(string $name): self
+    public function setName(string $name): Field
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;
     }
 
-    /**
-     * @param string $value
-     *
-     * @return self
-     */
-    public function setValue(string $value): self
+    public function setValue(string $value): Field
     {
         $this->value = $value;
 
         return $this;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getIsInline(): ?bool
     {
         return $this->isInline;
     }
 
-    /**
-     * @param bool|null $isInline
-     *
-     * @return self
-     */
-    public function setIsInline(?bool $isInline): self
+    public function setIsInline(?bool $isInline): Field
     {
         $this->isInline = $isInline;
 

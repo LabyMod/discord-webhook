@@ -6,6 +6,7 @@ namespace DiscordWebhook\Generator;
 use DateTimeInterface;
 use SplFileInfo;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\YamlFileLoader;
 use Symfony\Component\Serializer\NameConverter\MetadataAwareNameConverter;
@@ -22,10 +23,7 @@ use Symfony\Component\Serializer\Serializer;
  */
 class PayloadGenerator
 {
-    /**
-     * @var Serializer
-     */
-    private $serializer;
+    private Serializer $serializer;
 
     public function __construct()
     {
@@ -52,6 +50,9 @@ class PayloadGenerator
         $this->serializer = new Serializer([$normalizer], [new JsonEncoder()]);
     }
 
+    /**
+     * @throws ExceptionInterface
+     */
     public function generate(object $object): array
     {
         $data = [];
