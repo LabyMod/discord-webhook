@@ -1,5 +1,8 @@
 # Changelog
 
+### 3.0.1
+* FEATURE: `DiscordWebhook\Webhook`'s constructor now accepts a string (and still ofc. an array for [multiple destinations](/docs/01_Basics.md#multiple-destinations))
+
 ## 3.0.0
 * FEATURE: Enums
   * `EmbedColor` was replaced by an enum of same name
