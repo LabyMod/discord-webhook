@@ -22,9 +22,24 @@ $wh = new \DiscordWebhook\Webhook([
 
 $wh
     ->setMessage('testtt')
-    /*->addEmbed(
+    ->addEmbed(
         (new \DiscordWebhook\Embed())
-    )*/;
+            ->setTitle('TEST')
+            ->setColor(\DiscordWebhook\EmbedColor::DARK_RED)
+            ->addField(
+                (new \DiscordWebhook\Embed\Field())
+                    ->setIsInline(true)
+                    ->setName('TestFieldName')
+                    ->setValue('TestFieldValue')
+            )
+            ->setAuthor(
+                (new \DiscordWebhook\Embed\Author())
+                    ->setName('Scrummer')
+                    ->setIconUrl('https://pbs.twimg.com/profile_images/1454563699587436557/KzhwN-fK_400x400.jpg')
+            )
+    )
+    ->setFile(new SplFileInfo(__DIR__ . '/lipsum.pdf'))
+;
 
 $wh->send();
 
