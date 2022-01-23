@@ -2,6 +2,8 @@
 /tmp/
 /src/vendor/
 /composer.lock
+/.env*
+!/.env.dist
 
 # PHPUnit
 /.phpunit/*
