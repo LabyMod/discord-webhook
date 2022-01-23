@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.2
+* FEATURE: `DiscordWebhook\Webhook`'s constructor now accepts a string (and still ofc. an array for [multiple destinations](/docs/01_Basics.md#multiple-destinations))
+
 ## 2.0.1
 * BUG: Fixed too early property access
 
