@@ -65,7 +65,7 @@ class Webhook
         /** @var ArrayCollection|int[] $responseCodes */
         $responseCodes = new ArrayCollection();
 
-        if ($this->getFile() !== null && $this->embeds->count() > 0) {
+        if (isset($this->file) && $this->embeds->count() > 0) {
             throw new RuntimeException('Cannot use embeds and files in the same Webhook.');
         }
 
