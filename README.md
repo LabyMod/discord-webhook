@@ -27,7 +27,7 @@ Hop into the wonderful world of webhooks with just those few lines:
 ```php
 use DiscordWebhook\Webhook;
 
-$wh = new Webhook(['https://my.webhook/url']);
+$wh = new Webhook('https://my.webhook/url');
 $wh
     ->setMessage('Hello world!')
     ->send();
