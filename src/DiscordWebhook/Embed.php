@@ -26,49 +26,6 @@ class Embed
      */
     public const CONFIG_MAX_COUNT = 10;
 
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_DEFAULT     = EmbedColor::DEFAULT;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_AQUA        = EmbedColor::AQUA;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_GREEN       = EmbedColor::GREEN;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_BLUE        = EmbedColor::BLUE;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_PURPLE      = EmbedColor::PURPLE;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_GOLD        = EmbedColor::GOLD;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_ORANGE      = EmbedColor::ORANGE;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_RED         = EmbedColor::RED;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_GREY        = EmbedColor::GREY;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_DARKER_GREY = EmbedColor::DARKER_GREY;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_NAVY        = EmbedColor::NAVY;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_DARK_AQUA   = EmbedColor::DARK_AQUA;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_DARK_GREEN  = EmbedColor::DARK_GREEN;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_DARK_BLUE   = EmbedColor::DARK_BLUE;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_DARK_PURPLE = EmbedColor::DARK_PURPLE;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_DARK_GOLD   = EmbedColor::DARK_GOLD;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_DARK_ORANGE = EmbedColor::DARK_ORANGE;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_DARK_RED    = EmbedColor::DARK_RED;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_DARK_GREY   = EmbedColor::DARK_GREY;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_LIGHT_GREY  = EmbedColor::LIGHT_GREY;
-    /** @deprecated Use \DiscordWebhook\EmbedColor::class instead */
-    public const COLOR_DARK_NAVY   = EmbedColor::DARK_NAVY;
-
     private ?string $title;
 
     private ?string $type = 'rich';
@@ -79,7 +36,7 @@ class Embed
 
     private ?DateTime $timestamp;
 
-    private ?int $color;
+    private EmbedColor $color = EmbedColor::DEFAULT;
 
     private ?Footer $footer;
 
@@ -160,12 +117,12 @@ class Embed
         return $this;
     }
 
-    public function getColor(): ?int
+    public function getColor(): EmbedColor
     {
         return $this->color;
     }
 
-    public function setColor(?int $color): Embed
+    public function setColor(EmbedColor $color): Embed
     {
         $this->color = $color;
 

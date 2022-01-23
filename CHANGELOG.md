@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.0
+* FEATURE: Enums
+  * `EmbedColor` was replaced by an enum of same name
+* BC BREAKS
+  * Dropped compatibility/suppport for PHP 8.0
+
+
 ## 2.0.0
 * FEATURE: PHP 8.1 ready
   * Added proper type annotations
