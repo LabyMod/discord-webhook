@@ -38,7 +38,7 @@ $wh
                     ->setIconUrl('https://pbs.twimg.com/profile_images/1454563699587436557/KzhwN-fK_400x400.jpg')
             )
     )
-    ->setFile(new SplFileInfo(__DIR__ . '/lipsum.pdf'))
+//    ->setFile(new SplFileInfo(__DIR__ . '/lipsum.pdf'))
 ;
 
 $wh->send();

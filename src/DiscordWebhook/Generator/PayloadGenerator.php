@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace DiscordWebhook\Generator;
 
+use BackedEnum;
 use DateTimeInterface;
 use SplFileInfo;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -32,7 +33,8 @@ class PayloadGenerator
         $defaultContext = [
             AbstractNormalizer::CALLBACKS => [
                 'timestamp' => [$this, 'formatTimestamp'],
-                'file' => [$this, 'formatFile']
+                'file' => [$this, 'formatFile'],
+                'color' => [$this, 'enumToValue']
             ],
             AbstractObjectNormalizer::SKIP_NULL_VALUES => true
         ];
@@ -100,5 +102,10 @@ class PayloadGenerator
         }
 
         return null;
+    }
+
+    public function enumToValue(BackedEnum $enum): mixed
+    {
+        return $enum->value;
     }
 }
