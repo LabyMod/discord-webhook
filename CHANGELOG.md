@@ -10,6 +10,9 @@
   * Dropped compatibility/suppport for PHP 8.0
 
 
+## 2.x
+> **Note**: For the complete 2.x changelog see [2.x/CHANGELOG.md](https://github.com/LabyMod/discord-webhook/blob/2.x/CHANGELOG.md)
+
 ## 2.0.0
 * FEATURE: PHP 8.1 ready
   * Added proper type annotations
