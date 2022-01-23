@@ -1,6 +1,6 @@
 # Embeds
 
-`DiscordWebhook\Embed::class` is the base class for creating an embed.
+`DiscordWebhook\Embed` is the base class for creating an embed.
 A message can contain [up to 10 embeds](https://discordapp.com/developers/docs/resources/webhook#execute-webhook).
 
 Every embed can contain different components.
@@ -9,14 +9,15 @@ For every component there is a class which can be used to construct the embed ac
 ## Elements
 All properties are `private`. Use their getters and setters to access them.
 
-* `DiscordWebhook\Embed::class` (base class)
-    * `DiscordWebhook\Embed\Author::class`
-    * `DiscordWebhook\Embed\Field::class`
-    * `DiscordWebhook\Embed\Footer::class`
-    * `DiscordWebhook\Embed\Image::class`
-    * `DiscordWebhook\Embed\Provider::class`
-    * `DiscordWebhook\Embed\Thumbnail::class`
-    * `DiscordWebhook\Embed\Video::class`
+* `DiscordWebhook\Embed` (base class)
+    * `DiscordWebhook\Embed\Author`
+    * `DiscordWebhook\Embed\Field`
+    * `DiscordWebhook\Embed\Footer`
+    * `DiscordWebhook\Embed\Image`
+    * `DiscordWebhook\Embed\Provider`
+    * `DiscordWebhook\Embed\Thumbnail`
+    * `DiscordWebhook\Embed\Video`
+* `DiscordWebhook\EmbedColor` (base colour class; see example below)
 
 ## Simple example
 ```php
@@ -37,4 +38,16 @@ $wh
 ```
 
 Result:<br>
-![Webhook image](http://img.scrummer.de/210801050120-43792.png)
+![images/embed.png](images/embed.png)
+
+## Colouring your Embed
+The `DiscordWebhook\EmbedColor` enum brings a palette of predefined colours which you can use, to colorize your embeds:
+```php
+$embed = new \DiscordWebhook\Embed();
+
+// Have a look at the class for a full list of available colours
+$embed->setColor(\DiscordWebhook\EmbedColor::DARK_RED);
+```
+
+The colour used above will look like this:<br>
+![images/colorized-embed.png](images/colorized-embed.png)
