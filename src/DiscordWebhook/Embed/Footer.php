@@ -15,25 +15,14 @@ class Footer
 {
     use IconTrait;
 
-    /**
-     * @var string
-     */
-    private $text;
+    private string $text;
 
-    /**
-     * @return string
-     */
     public function getText(): string
     {
         return $this->text;
     }
 
-    /**
-     * @param string $text
-     *
-     * @return self
-     */
-    public function setText(string $text): self
+    public function setText(string $text): Footer
     {
         $this->text = $text;
 

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+## Description: Test webhooks (./tests/test.php)
+## Usage: test
+/usr/bin/php /var/www/html/tests/test.php

@@ -2,8 +2,5 @@
 /tmp/
 /src/vendor/
 /composer.lock
-
-# PHPUnit
-/.phpunit/*
-!/.phpunit/.gitkeep
-/.phpunit*.cache
+/.env*
+!/.env.dist

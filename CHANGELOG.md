@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.0.0
+* FEATURE: PHP 8.1 ready
+  * Added proper type annotations
+  * Removed php annotations
+* BC BREAKS
+  * Drop support for PHP 7.4
+* DEPRECATIONS
+  * All `Embed::COLOR_*` constants (will be removed in 3.0); use `\DicordWebhook\EmbedColor::XY` now.
+
 ### 1.0.6
 * Changed `guzzlehttp/guzzle` version bound to be backwards compatible.
 

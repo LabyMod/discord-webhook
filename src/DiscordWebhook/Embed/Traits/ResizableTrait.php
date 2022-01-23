@@ -11,29 +11,15 @@ namespace DiscordWebhook\Embed\Traits;
  */
 trait ResizableTrait
 {
-    /**
-     * @var int|null
-     */
-    private $width;
+    private ?int $width;
 
-    /**
-     * @var int|null
-     */
-    private $height;
+    private ?int $height;
 
-    /**
-     * @return int|null
-     */
     public function getWidth(): ?int
     {
         return $this->width;
     }
 
-    /**
-     * @param int|null $width
-     *
-     * @return self
-     */
     public function setWidth(?int $width): self
     {
         $this->width = $width;
@@ -41,19 +27,11 @@ trait ResizableTrait
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getHeight(): ?int
     {
         return $this->height;
     }
 
-    /**
-     * @param int|null $height
-     *
-     * @return self
-     */
     public function setHeight(?int $height): self
     {
         $this->height = $height;

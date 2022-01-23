@@ -15,25 +15,14 @@ class Provider
 {
     use NameableTrait;
 
-    /**
-     * @var string|null
-     */
-    private $url;
+    private ?string $url;
 
-    /**
-     * @return string|null
-     */
     public function getUrl(): ?string
     {
         return $this->url;
     }
 
-    /**
-     * @param string|null $url
-     *
-     * @return self
-     */
-    public function setUrl(?string $url): self
+    public function setUrl(?string $url): Provider
     {
         $this->url = $url;
 

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# Install composer dependencies
-/usr/local/bin/composer ${COMPOSER_COMMAND:=install} --working-dir=/app
-
-# Run PHPUnit
-/usr/local/bin/phpunit
