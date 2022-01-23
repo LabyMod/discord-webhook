@@ -42,11 +42,15 @@ class Webhook
 
     private PayloadGenerator $payloadGenerator;
 
-    public function __construct(array $url)
+    public function __construct(array|string $url)
     {
         $this->embeds = new ArrayCollection();
         $this->clients = new ArrayCollection();
         $this->payloadGenerator = new PayloadGenerator();
+
+        if (!is_array($url)) {
+            $url = [$url];
+        }
 
         foreach ($url as $webhook) {
             $this->clients->add(new Client([
