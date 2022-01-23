@@ -22,7 +22,7 @@ $wh = new \DiscordWebhook\Webhook([
 
 $wh
     ->setMessage('testtt')
-    ->addEmbed(
+    /*->addEmbed(
         (new \DiscordWebhook\Embed())
             ->setTitle('TEST')
             ->setColor(\DiscordWebhook\EmbedColor::DARK_RED)
@@ -37,7 +37,7 @@ $wh
                     ->setName('Scrummer')
                     ->setIconUrl('https://pbs.twimg.com/profile_images/1454563699587436557/KzhwN-fK_400x400.jpg')
             )
-    )
+    )*/
     ->setFile(new SplFileInfo(__DIR__ . '/lipsum.pdf'))
 ;
 
