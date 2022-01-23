@@ -12,7 +12,7 @@ Send Discord messages directly from your PHP application. Even with embeds & fil
 | Release | Supported PHP Versions | Supported Symfony Versions   | Release Date | Maintained | Branch |
 |---------|------------------------|------------------------------|--------------|------------|--------|
 | 3.x     | `^8.1`                 | `^4.4.35`, `^5.3.12`, `^6.0` | ???          | Yes        | master |
-| 2.x     | `^8.0`                 | `^4.4.35`, `^5.3.12`, `^6.0` | ???          | Yes        | 2.x    |
+| 2.x     | `^8.0`                 | `^4.4.35`, `^5.3.12`, `^6.0` | 23.01.2022   | Yes        | 2.x    |
 | 1.x     | `^7.3`, `^8.0`         | `^3.0`, `^4.0`, `^5.0`       | 05.01.2020   | No         | 1.x    |
 
 ## Installation
