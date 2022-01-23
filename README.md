@@ -8,6 +8,7 @@
 Send Discord messages directly from your PHP application. Even with embeds & files!
 
 ## Versions & Compatibility
+
 | Release | Supported PHP Versions | Supported Symfony Versions   | Release Date | Maintained | Branch |
 |---------|------------------------|------------------------------|--------------|------------|--------|
 | 3.x     | `^8.1`                 | `^4.4.35`, `^5.3.12`, `^6.0` | ???          | Yes        | master |
