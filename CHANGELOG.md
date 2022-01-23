@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.1
+* BUG: Fixed too early property access
+
 ## 2.0.0
 * FEATURE: PHP 8.1 ready
   * Added proper type annotations
