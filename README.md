@@ -33,6 +33,19 @@ $wh
     ->send();
 ```
 
+### ✨ NEW: Simple Webhooks
+> **First** (recommended but optional): Define the `DWH_DEFAULT_URL` as environment variable
+
+```php
+use DiscordWebhook\SimpleWebhook;
+
+// with environment variable defined:
+SimpleWebhook::sendMessage('My simple message.');
+
+// without environment variable defined (or to override the already set env var):
+SimpleWebhook::sendMessage('My simple message.', 'https://discord.com/my/webhook/url');
+```
+
 For further documentation have a look here:
 * [Basics](docs/01_Basics.md)
 * [Sending Files](docs/02_SendingFiles.md)
