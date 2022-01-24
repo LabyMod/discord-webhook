@@ -88,6 +88,14 @@ class Webhook
         return true;
     }
 
+    /**
+     * @return ArrayCollection|Client[]
+     */
+    public function getClients(): ArrayCollection|array
+    {
+        return $this->clients;
+    }
+
     public function getUsername(): ?string
     {
         return $this->username;
