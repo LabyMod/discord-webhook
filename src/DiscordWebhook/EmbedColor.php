@@ -3,6 +3,12 @@ declare(strict_types=1);
 
 namespace DiscordWebhook;
 
+/**
+ * Enum EmbedColor
+ *
+ * @author Scrummer <scrummer@gmx.ch>
+ * @package DiscordWebhook
+ */
 enum EmbedColor: int
 {
     case DEFAULT = 0;

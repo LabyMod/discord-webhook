@@ -15,6 +15,11 @@ if (!array_key_exists('DISCORD_TEST_URL', $_ENV)) {
     exit(1);
 }
 
+// TEST simple webhook
+\DiscordWebhook\SimpleWebhook::sendMessage('Test simple WH', 'https://canary.discord.com/api/webhooks/422789288565014530/DbUOQNLXS8-BN9eFkVKCAdvnp2dNpRMebRAOXZEWU0bLx70t689t7QYrG5S4oibNIWI0');
+
+exit;
+
 // CONFIGURE your Webhook below to test
 $wh = new \DiscordWebhook\Webhook([
     $_ENV['DISCORD_TEST_URL']
