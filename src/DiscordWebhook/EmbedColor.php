@@ -3,6 +3,12 @@ declare(strict_types=1);
 
 namespace DiscordWebhook;
 
+/**
+ * Class EmbedColor
+ *
+ * @author Scrummer <scrummer@gmx.ch>
+ * @package DiscordWebhook
+ */
 class EmbedColor
 {
     public const DEFAULT     = 0;
