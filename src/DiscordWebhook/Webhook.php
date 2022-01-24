@@ -96,6 +96,11 @@ class Webhook
         return $this->clients;
     }
 
+    public function addClient(Client $client): void
+    {
+        $this->clients->add($client);
+    }
+
     public function getUsername(): ?string
     {
         return $this->username;
