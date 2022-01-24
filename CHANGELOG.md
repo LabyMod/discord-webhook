@@ -1,5 +1,12 @@
 # Changelog
 
+### 2.1.0
+* FEATURE: `DiscordWebhook\SimpleWebhook`
+  * Create simple text-based webhooks without much boilerplate code
+  * Configure URL:
+    * Set the `DWH_DEFAULT_URL` environment variable
+    * or pass the URL directly as parameter of the `SimpleWebhook::sendMessage()` method
+
 ### 2.0.2
 * FEATURE: `DiscordWebhook\Webhook`'s constructor now accepts a string (and still ofc. an array for [multiple destinations](/docs/01_Basics.md#multiple-destinations))
 
