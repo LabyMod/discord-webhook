@@ -16,9 +16,9 @@ if (!array_key_exists('DISCORD_TEST_URL', $_ENV)) {
 }
 
 // TEST simple webhook
-\DiscordWebhook\SimpleWebhook::sendMessage('Test simple WH', 'https://canary.discord.com/api/webhooks/422789288565014530/DbUOQNLXS8-BN9eFkVKCAdvnp2dNpRMebRAOXZEWU0bLx70t689t7QYrG5S4oibNIWI0');
+/*\DiscordWebhook\SimpleWebhook::sendMessage('Test simple WH');
 
-exit;
+exit;*/
 
 // CONFIGURE your Webhook below to test
 $wh = new \DiscordWebhook\Webhook([
@@ -46,6 +46,7 @@ $wh
 //    ->setFile(new SplFileInfo(__DIR__ . '/lipsum.pdf'))
 ;
 
-$wh->send();
+//$wh->send();
+$wh->reset();
 
 exit(0);

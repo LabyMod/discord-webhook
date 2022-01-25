@@ -44,9 +44,7 @@ class Webhook
 
     public function __construct(array|string $url)
     {
-        $this->embeds = new ArrayCollection();
-        $this->clients = new ArrayCollection();
-        $this->payloadGenerator = new PayloadGenerator();
+        $this->initDefaults();
 
         if (!is_array($url)) {
             $url = [$url];
@@ -59,12 +57,27 @@ class Webhook
         }
     }
 
+    private function initDefaults(): void
+    {
+        if (!isset($this->embeds)) {
+            $this->embeds = new ArrayCollection();
+        }
+
+        if (!isset($this->clients)) {
+            $this->clients = new ArrayCollection();
+        }
+
+        if (!isset($this->payloadGenerator)) {
+            $this->payloadGenerator = new PayloadGenerator();
+        }
+    }
+
     /**
      * @throws GuzzleException
      * @throws ExceptionInterface
      * @throws RuntimeException
      */
-    public function send(): bool
+    public function send(bool $resetAfterDispatch = false): bool
     {
         /** @var ArrayCollection|int[] $responseCodes */
         $responseCodes = new ArrayCollection();
@@ -85,7 +98,29 @@ class Webhook
             }
         }
 
+        if ($resetAfterDispatch) {
+            $this->reset();
+        }
+
         return true;
+    }
+
+    /**
+     * Reset the webhook object to initial state.
+     * Can be used if the same webhook instance is being used multiple times
+     * to send different content.
+     */
+    public function reset(array $ignoreFields = []): void
+    {
+        $ignoreFields = array_merge(['clients', 'payloadGenerator'], $ignoreFields);
+
+        foreach ($this as $property => $value) {
+            if (!in_array($property, $ignoreFields, true)) {
+                unset($this->$property);
+            }
+        }
+
+        $this->initDefaults();
     }
 
     /**
